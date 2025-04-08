@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load digitalstore_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+{% endblock slider %}
+
+{% block main %}
+<main>
+    <div class="content">
+        <div class="container">
+            <h2 class="login_title">Оформить заказ</h2>
+
+            <div class="login_content">
+                <div class="login">
+                    <div class="login_form">
+                        <form action="{% url 'payment' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ customer_form.first_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ customer_form.last_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ shipping_form.region }}
+                            </div>
+                            <div class="form-group">
+                                {{ shipping_form.city }}
+                            </div>
+                            <div class="form-group">
+                                {{ shipping_form.address }}
+                            </div>
+                            <div class="form-group">
+                                {{ shipping_form.phone }}
+                            </div>
+                            <div class="form-group">
+                                {{ shipping_form.comment }}
+                            </div>
+                            <button class="btn btn-register" type="submit">Перейти к оплате</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

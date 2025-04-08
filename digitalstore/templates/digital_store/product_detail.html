@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load digitalstore_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+<div class="content">
+    <div class="container">
+        <div class="detail_product">
+            <div class="product_img">
+                <img class="product_img-img" src="{{ product.get_photo }}" alt="">
+            </div>
+            <div class="product_info">
+                <h2 class="title__product">{{ product.title }}</h2>
+                <div class="price_color">
+                    <div class="price_product">
+                        <p>Цена:</p>
+                        <h3>{{ product.price }} сум</h3>
+                    </div>
+                    <div class="color_product">
+                        <p>Цвет:</p>
+                        <div class="box_color">
+                            {% get_colors_product product.brand product.category as colors %}
+                            {% for color in colors %}
+                            <a href="{% url 'product_color' color product.category product.brand %}" data-tabs="white"
+                               class="color_squer first active" style="background: {{ color }};"></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="list_button">
+                    <a href="{% url 'add_product' product.slug 'add' %}" class="btn btn_cage1">
+                        <img src="{% static 'digitalstore_static/image/icons/cage.svg' %}" alt="">
+                        <span>Вкорзину</span>
+                    </a>
+
+                    <a href="" class="btn btn_cage2"><span>Купить в рассрочку</span> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock slider %}
+
+{% block main %}
+<div class="content">
+    <div class="container">
+
+        <div class="product_detail_info">
+            <h4 class="title_info">Общие характеристики:</h4>
+            <ul class="list_info">
+                <li>
+                    <p class="list_left">Марка и модель</p> <span class="list_right">{{ product.title }}</span>
+                </li>
+                {% if product.discount > 0 %}
+                <li>
+                    <p class="list_left">Скидка</p> <span class="list_right">{{ product.discount }}%</span>
+                </li>
+                {% endif %}
+                <li>
+                    <p class="list_left">Дата выхода</p> <span class="list_right">{{ product.created_at }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Размеры (ВxШxГ)</p> <span class="list_right">{{ product.height }} Х {{ product.width }} Х {{ product.depth }} мм</span>
+                </li>
+                <li>
+                    <p class="list_left">Корпус</p> <span class="list_right">{{ product.frame }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Аккумулятор</p> <span class="list_right">{{ product.accumulator }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Технологии</p> <span class="list_right">{{ product.technology }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Размер (Диагональ)</p> <span
+                        class="list_right">{{ product.size }}" (дюйма)</span>
+                </li>
+                <li>
+                    <p class="list_left">Камера заднего, основная</p> <span
+                        class="list_right">{{ product.front_camera }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Фронтальная камера, селфи</p> <span
+                        class="list_right">{{ product.back_camera }}</span>
+                </li>
+                <li>
+                    <p class="list_left">Операционная система(OS)</p> <span
+                        class="list_right">{{ product.os }}</span>
+                </li>
+            </ul>
+            <h5 class="title_info">Гарантия: {{ product.guarantee }} года</h5>
+        </div>
+
+        <div class="same_products">
+            <div class="content">
+                <div class="container">
+                    <div class="same_product_text">
+                        <h2 class="content__title">Похожие товары</h2>
+                        <a href="#" class="content__title"><span>Больше Товаров</span>
+                            <img src="{% static 'digitalstore_static/image/icons/errow_right.svg' %}" alt=""></a>
+                    </div>
+                    <div class="content__cards">
+                        {% for product in products %}
+                        {% include 'digital_store/components/_card.html' %}
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main %}

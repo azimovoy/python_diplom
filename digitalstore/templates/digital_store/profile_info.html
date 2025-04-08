@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load digitalstore_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+    <div class="content_user">
+        <div class="user container">
+            <h3 class="user_room">Личный кабинет</h3>
+            <div class="user_block">
+                <div class="user_img">
+                    <img class="user_img-img" src="{{ profile.get_profile_photo }}" alt="">
+                    <div class="user_name">
+                        <p>{{ profile.user.username }}</p>
+                    </div>
+                </div>
+                <div class="user_info">
+                    <h2 class="user_title">Личные данные</h2>
+                    <ul class="lis__user_info">
+                        <li class="list_user"><p>Имя:</p> <span>{{ profile.user.first_name }}</span></li>
+                        <li class="list_user"><p>Фамилия:</p> <span>{{ profile.user.last_name }}</span></li>
+                        <li class="list_user"><p>Телефон:</p> <span>{{ profile.phone }}</span></li>
+                        <li class="list_user"><p>E-mail:</p> <span>{{ profile.user.email }}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <a href="{% url 'profile' %}" class="btn btn_profile">Редактировать</a>
+        </div>
+    </div>
+
+    <div class="content_order">
+        {% for item in items %}
+        <div class="my_orders">
+            <h3>Заказ на сумму: {{ item.get_order_total_price }} сум</h3>
+            <img src="{% static 'digitalstore_static/image/icons/errow_right.svg' %}" alt="" class="errow_down">
+        </div>
+
+        <ul class="list_orders">
+            {% for good in item.orderproduct_set.all %}
+            <li class="order">
+                <img src="{{ good.product.get_photo }}" class="profile_order_info" alt="">
+                <div class="info_order">
+                    <h4 class="product_title">{{ good.product.title }}</h4>
+                    <div class="color_quantity">
+                        <div class="color"><p>Цвет:</p> <span>{{ good.product.color_name }}</span></div>
+                        <div class="quantity"><p>Кол-во:</p> <span>{{ good.quantity }}</span></div>
+                    </div>
+                </div>
+                <p class="product_price">{{ good.product.price }} сум</p>
+                <div class="data"><img src="{% static 'digitalstore_static/image/icons/clarity_date-line.svg' %}"
+                                       alt="">
+                    <span>{{ good.product.created_at }}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+
+    </div>
+
+    <div class="content_connect">
+        <p class="content_top_text">Привязка к аккаунтам соцсетей</p>
+        <p class="content_midle_text">Вы можете связать свой профиль с профилями в социальных сетях и сервисах:</p>
+        <div class="list_mail">
+            <img src="{% static 'digitalstore_static/image/icons/tg.svg' %}" alt="">
+            <img src="{% static 'digitalstore_static/image/icons/insta.svg' %}" alt="">
+            <img src="{% static 'digitalstore_static/image/icons/fb.svg' %}" alt="">
+            <img src="{% static 'digitalstore_static/image/icons/google.svg' %}" alt="">
+        </div>
+    </div>
+</main>
+{% endblock main %}
+

@@ -1,0 +1,52 @@
+{% load static %}
+{% load digitalstore_tags %}
+<li class="order order_cart">
+    <div class="info">
+        <a href="{{ order_product.product.get_absolute_url }}">
+            <img class="order_cart_img" src="{{ order_product.product.get_photo }}" alt="">
+        </a>
+        <div class="info_order">
+            <h4 class="product_title">{{ order_product.product.title }}</h4>
+            <div class="color_quantity">
+                <div class="color"><p>Цвет:</p> <span>{{ order_product.product.color_name }}</span></div>
+
+                <div class="quantity"><p>Кол-во:</p> <span>{{ order_product.quantity }}</span>
+
+                    <div class="quantity_arrow">
+
+                        <a href="{% url 'add_product' order_product.product.slug 'add' %}">
+                            <img data-product="id" data-action="add" class="chg-quantity update-cart"
+                                 src="{% static 'digitalstore_static/image/icons/arrow-up.png' %}" alt="">
+                        </a>
+
+                        <a href="{% url 'add_product' order_product.product.slug 'delete' %}">
+                            <img data-product="id" data-action="remove" class="chg-quantity update-cart"
+                                 src="{% static 'digitalstore_static/image/icons/arrow-down.png' %}" alt="">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="price_cart">
+        <p class="product_price_title">Стоимость</p>
+        {% if order_product.product.discount %}
+        <p class="old_price">{% get_price order_product.total_price %} сум</p>
+        <p class="product_price">{% get_price order_product.get_total_price %} сум</p>
+        {% else %}
+        <p class="product_price">{{ order_product.product.price }} сум</p>
+        {% endif %}
+    </div>
+
+    <div class="data_add">
+        <p class="product_data">Дата добавления</p>
+        <div class="data"><img src="{% static 'digitalstore_static/image/icons/clarity_date-line.svg' %}" alt="">
+            <span>{{ order_product.added_at }}</span>
+        </div>
+    </div>
+    <div class="price_cart">
+        <p class="product_price_title">Итого</p>
+        <p class="product_price">{{ order_product.get_total_price }} сум</p>
+    </div>
+</li>

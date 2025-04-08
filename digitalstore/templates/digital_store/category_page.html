@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load digitalstore_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+{% endblock slider %}
+
+{% block main %}
+<div class="content">
+    <div class="container">
+
+        <div class="same_products">
+            <div class="content">
+                <div class="container">
+                    <h2 class="content__title">{{ category.title }}</h2>
+                    {% include 'digital_store/components/_filters.html' %}
+                    <div class="content__cards">
+                        {% for product in products %}
+                        {% include 'digital_store/components/_card.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'digital_store/components/_pagination.html' %}
+    </div>
+</div>
+{% endblock main %}

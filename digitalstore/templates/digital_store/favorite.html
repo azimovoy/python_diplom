@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load digitalstore_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<div class="content">
+    <div class="container">
+        <div class="same_products">
+            <div class="content">
+                <div class="container">
+                    <h2 class="content__title">{{ title }}</h2>
+                    <div class="content__cards">
+                        {% if products %}
+                        {% for product in products %}
+                        {% include 'digital_store/components/_card.html' %}
+                        {% endfor %}
+                        {% else %}
+                        <h3 class="no_favorites">У вас нет избранных товаров</h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'digital_store/components/_pagination.html' %}
+    </div>
+</div>
+{% endblock main %}
